@@ -65,4 +65,50 @@ public class SeparateChannels {
 
     }
 
+    public static void aumentoDeTonalidade(Image imgEntrada, int banda, int aumento) {
+        int largura = imgEntrada.getImage().getWidth();
+        int altura = imgEntrada.getImage().getHeight();
+        BufferedImage imageSaida = new BufferedImage(imgEntrada.getImageWidth(), imgEntrada.getImageHeigth(), BufferedImage.TYPE_INT_RGB);
+//        Image imageSaida = new Image();
+
+        for (int linha = 0; linha < altura; linha++) {
+            for (int coluna = 0; coluna < largura; coluna++) {
+
+                int rgb = imgEntrada.getImage().getRGB(coluna, linha);
+                Color cor = new Color(rgb);
+                int red = cor.getRed();
+                int green = cor.getGreen();
+                int blue = cor.getBlue();
+
+                Color novaCor = null;
+                if (banda == 1) {
+                    if(red+aumento<= 255) {
+                        novaCor = new Color(red + aumento, green, blue);
+                    } else {
+                        novaCor = new Color(255, green, blue);
+                    }
+                } else if (banda == 2) {
+                    if(green + aumento <= 255) {
+                        novaCor = new Color(red, green + aumento, blue);
+                    } else {
+                        novaCor = new Color(red, 255, blue);
+                    }
+                } else if (banda == 3) {
+                    if(blue + aumento <= 255) {
+                        novaCor = new Color(red, green, blue + aumento);
+                    } else {
+                        novaCor = new Color(red, green, 255);
+                    }
+                }
+
+                assert novaCor != null;
+                imageSaida.setRGB(coluna, linha, novaCor.getRGB());
+
+            }
+        }
+
+        PrintImage.showImage(imageSaida);
+
+    }
+
 }
