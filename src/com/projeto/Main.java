@@ -14,6 +14,9 @@ public class Main {
 //    C:/Users/henri/Pictures/f12022drivers.jpg
 //    C:/Users/henri/Pictures/senna.jpg
 //    C:\Users\henri\Pictures\sennaBandeira2.jpg
+    // D:\Faculdade\P5\processamentoDeImagem\lenaOG.png
+// D:\Faculdade\P5\processamentoDeImagem\lena.png
+// D:\Faculdade\P5\processamentoDeImagem\barbara.png
 
     public static void main(String[] args) throws IOException {
 
@@ -23,6 +26,10 @@ public class Main {
         String imagePath = scanner.nextLine();
 
         Image image = new Image(imagePath);
+
+        double[] gauss3x3 = {0.0625, 0.125, 0.0625, 0.125, 0.25, 0.125, 0.0625, 0.125, 0.0625};
+
+        double[] horizontal = {-1, -2, -1, 0, 0, 0, 1, 2, 1};
 
         boolean repetirMenu = true;
         while (repetirMenu) {
@@ -92,6 +99,15 @@ public class Main {
                     double[][][] yiqNeg = Filtro.convertRgbtoYiq(image);
                     Filtro.negativoYIQ(yiqNeg);
                     break;
+                case "15":
+                    Filtro.mediana(image);
+                    break;
+                case "16":
+                    Filtro.media(image);
+                    break;
+                case "17":
+                    Filtro.convolucao(image, gauss3x3);
+                    break;
                 case "0":
                     repetirMenu = false;
                     break;
@@ -120,6 +136,9 @@ public class Main {
         System.out.println("12 - Brilho aditivo em YIQ");
         System.out.println("13 - Brilho mutiplicativo em YIQ");
         System.out.println("14 - Negativo em Y");
+        System.out.println("15 - Mediana");
+        System.out.println("16 - Media");
+        System.out.println("17 - Convolução");
         System.out.println("0 - Finalizar programa");
         System.out.print("Escolha um item do menu: ");
 

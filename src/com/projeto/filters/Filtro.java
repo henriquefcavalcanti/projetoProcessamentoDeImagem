@@ -5,6 +5,8 @@ import com.projeto.model.Image;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Filtro {
 
@@ -101,6 +103,84 @@ public class Filtro {
 
     }
 
+    public static void mediana(Image imgOriginal) {
+        BufferedImage newImage = new BufferedImage(imgOriginal.getImageWidth(), imgOriginal.getImageHeigth(), BufferedImage.TYPE_INT_RGB);
+
+        for (int column = 1; column < imgOriginal.getImageHeigth() - 1; column++) {
+            for (int line = 1; line < imgOriginal.getImageWidth() - 1; line++) {
+
+                Color cor1 = new Color(imgOriginal.getImage().getRGB(line - 1, column - 1));
+                Color cor2 = new Color(imgOriginal.getImage().getRGB(line - 1, column));
+                Color cor3 = new Color(imgOriginal.getImage().getRGB(line - 1, column + 1));
+                Color cor4 = new Color(imgOriginal.getImage().getRGB(line, column - 1));
+                Color cor5 = new Color(imgOriginal.getImage().getRGB(line, column));
+                Color cor6 = new Color(imgOriginal.getImage().getRGB(line, column + 1));
+                Color cor7 = new Color(imgOriginal.getImage().getRGB(line + 1, column - 1));
+                Color cor8 = new Color(imgOriginal.getImage().getRGB(line + 1, column));
+                Color cor9 = new Color(imgOriginal.getImage().getRGB(line + 1, column - 1));
+
+                ArrayList<Integer> listaRed = new ArrayList<Integer>();
+                listaRed.add(cor1.getRed());
+                listaRed.add(cor2.getRed());
+                listaRed.add(cor3.getRed());
+                listaRed.add(cor4.getRed());
+                listaRed.add(cor5.getRed());
+                listaRed.add(cor6.getRed());
+                listaRed.add(cor7.getRed());
+                listaRed.add(cor8.getRed());
+                listaRed.add(cor9.getRed());
+
+                Collections.sort(listaRed);
+
+                int mediana = (int) listaRed.size() / 2;
+                int redMediana = listaRed.get(mediana);
+
+
+                Color novaCor = new Color(redMediana, redMediana, redMediana);
+                newImage.setRGB(line, column, novaCor.getRGB());
+
+            }
+        }
+        PrintImage.showImage(newImage);
+    }
+
+    public static void media(Image imgOriginal) {
+        BufferedImage newImage = new BufferedImage(imgOriginal.getImageWidth(), imgOriginal.getImageHeigth(), BufferedImage.TYPE_INT_RGB);
+
+        for (int column = 1; column < imgOriginal.getImageHeigth() - 1; column++) {
+            for (int line = 1; line < imgOriginal.getImageWidth() - 1; line++) {
+
+                Color cor1 = new Color(imgOriginal.getImage().getRGB(line - 1, column - 1));
+                Color cor2 = new Color(imgOriginal.getImage().getRGB(line - 1, column));
+                Color cor3 = new Color(imgOriginal.getImage().getRGB(line - 1, column + 1));
+                Color cor4 = new Color(imgOriginal.getImage().getRGB(line, column - 1));
+                Color cor5 = new Color(imgOriginal.getImage().getRGB(line, column));
+                Color cor6 = new Color(imgOriginal.getImage().getRGB(line, column + 1));
+                Color cor7 = new Color(imgOriginal.getImage().getRGB(line + 1, column - 1));
+                Color cor8 = new Color(imgOriginal.getImage().getRGB(line + 1, column));
+                Color cor9 = new Color(imgOriginal.getImage().getRGB(line + 1, column - 1));
+
+                int somaRed = 0;
+                somaRed += cor1.getRed();
+                somaRed += cor2.getRed();
+                somaRed += cor3.getRed();
+                somaRed += cor4.getRed();
+                somaRed += cor5.getRed();
+                somaRed += cor6.getRed();
+                somaRed += cor7.getRed();
+                somaRed += cor8.getRed();
+                somaRed += cor9.getRed();
+
+                int redMedia = (int) somaRed / 9;
+
+                Color novaCor = new Color(redMedia, redMedia, redMedia);
+                newImage.setRGB(line, column, novaCor.getRGB());
+
+            }
+        }
+        PrintImage.showImage(newImage);
+    }
+
     public static double[][][] convertRgbtoYiq(Image image) {
 
         int largura = image.getImageWidth();
@@ -127,6 +207,7 @@ public class Filtro {
         return imgYIQ;
 
     }
+
 
     public static void convertYiqToRgb(double[][][] imgYiq) {
         int largura = imgYiq.length;
@@ -317,6 +398,35 @@ public class Filtro {
         PrintImage.showImage(newImage);
     }
 
+    public static void convolucao(Image img, double[] kernel) {
+        int largura = img.getImage().getWidth();
+        int altura = img.getImage().getHeight();
+        BufferedImage imagemSaida = img.getImage();
+        int tamanho = (int) Math.sqrt(kernel.length);
+        int ref = tamanho / 2;
+
+        for (int linha = ref; linha < largura - ref; linha++) {
+            for (int coluna = ref; coluna < altura - ref; coluna++) {
+
+                double soma = 0;
+                int contador = 0;
+
+                for (int i = -ref; i <= ref; i++) {
+                    for (int j = -ref; j <= ref; j++) {
+                        Color cor = new Color(img.getImage().getRGB(coluna + i, linha + j));
+                        int red = cor.getRed();
+                        soma += (double) red * kernel[contador];
+                        contador++;
+                    }
+                }
+                int novoValor = (int) soma;
+                Color novaCor = new Color(novoValor, novoValor, novoValor);
+                imagemSaida.setRGB(coluna, linha, novaCor.getRGB());
+            }
+        }
+        PrintImage.showImage(imagemSaida);
+
+    }
 
 
 }
