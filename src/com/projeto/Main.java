@@ -10,13 +10,19 @@ import java.util.Scanner;
 
 public class Main {
 
-//    C:/Users/henri/Pictures/f1Donuts.jpg
-//    C:/Users/henri/Pictures/f12022drivers.jpg
-//    C:/Users/henri/Pictures/senna.jpg
-//    C:\Users\henri\Pictures\sennaBandeira2.jpg
-    // D:\Faculdade\P5\processamentoDeImagem\lenaOG.png
-// D:\Faculdade\P5\processamentoDeImagem\lena.png
-// D:\Faculdade\P5\processamentoDeImagem\barbara.png
+//  C:/Users/henri/Pictures/f1Donuts.jpg
+//  C:/Users/henri/Pictures/f12022drivers.jpg
+//  C:/Users/henri/Pictures/senna.jpg
+//  C:\Users\henri\Pictures\sennaBandeira2.jpg
+//  D:\Faculdade\P5\processamentoDeImagem\lenaOG.png
+//  D:\Faculdade\P5\processamentoDeImagem\lena.png
+//  D:\Faculdade\P5\processamentoDeImagem\barbara.png
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\ressonancia_craniana.jpg
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\mamografia.png
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\exame-urina.jpg
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\exame-urina2.jpg
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\teste-restauração.png
+//  D:\Faculdade\P5\processamentoDeImagem\estudo_de_caso\microbiota.jpg
 
     public static void main(String[] args) throws IOException {
 
